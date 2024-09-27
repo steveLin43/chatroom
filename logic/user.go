@@ -46,6 +46,11 @@ func (u *User) SendMessage(ctx context.Context) {
 	}
 }
 
+// CloseMessageChannel 避免 goroutine 洩漏
+func (u *User) CloseMessageChannel() {
+	close(u.MessageChannel)
+}
+
 func (u *User) ReceiveMessage(ctx context.Context) error {
 	var (
 		receiveMsg map[string]string
