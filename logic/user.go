@@ -3,6 +3,7 @@ package logic
 import (
 	"context"
 	"errors"
+	"regexp"
 	"sync/atomic"
 	"time"
 
@@ -69,6 +70,11 @@ func (u *User) ReceiveMessage(ctx context.Context) error {
 
 		// 把內容發送到聊天室
 		sendMsg := NewMessage(u, receiveMsg["content"])
+		sendMsg.Content = FilterSensitive(sendMsg.Content)
+
+		// 解析 content，看看 @ 了誰
+		reg := regexp.MustCompile(`@[^\s@]{2,20}`)
+		sendMsg.Ats = reg.FindAllString(sendMsg.Content, -1)
 		Broadcaster.Broadcast(sendMsg)
 	}
 }

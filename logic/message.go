@@ -18,6 +18,9 @@ type Message struct {
 	Content string    `json:"content"`
 	MsgTime time.Time `json:"msg_time"`
 
+	// 訊息 @ 了誰
+	Ats []string `json:"ats"`
+
 	Users []*User `json:"users"`
 }
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"chatroom/global"
 	"chatroom/server"
 	"fmt"
 	"log"
@@ -22,6 +23,10 @@ Go语言编程之旅 —— 一起用Go做项目：ChatRoom，start on：%s
 
 `
 )
+
+func init() {
+	global.Init()
+}
 
 func main() {
 	fmt.Printf(banner, addr)

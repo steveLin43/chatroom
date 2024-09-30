@@ -3,9 +3,22 @@ package global
 import (
 	"os"
 	"path/filepath"
+	"sync"
 )
 
+func init() {
+	Init()
+}
+
 var RootDir string
+var once = new(sync.Once)
+
+func Init() {
+	once.Do(func() {
+		inferRootDir()
+		initConfig()
+	})
+}
 
 // inferRootDir 推斷出項目的根目錄
 func inferRootDir() {
